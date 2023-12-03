@@ -2,8 +2,10 @@ package com.example.project.Controller;
 import com.example.project.Entity.Reservation;
 import com.example.project.Service.IReservationService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -37,7 +39,11 @@ public class ReservationController {
         Reservation reservation= reservationService.updateReservation(r);
         return reservation;
     }
-
+    @GetMapping("/getReservationParAnneeUniversitaire/{dateDebut}/{dateFin}")
+    public List<Reservation> getReservationParAnneeUniversitaire(@PathVariable  @DateTimeFormat(pattern="yyyy-MM-dd") Date dateD, @PathVariable  @DateTimeFormat(pattern="yyyy-MM-dd") Date dateF) {
+        List<Reservation> rsrv = reservationService.getReservationParAnneeUniversitaire(dateD,dateF);
+        return rsrv;
+    }
 
 
 }

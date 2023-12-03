@@ -3,6 +3,7 @@ package com.example.project.Service;
 import com.example.project.Entity.Etudiant;
 import com.example.project.Entity.Reservation;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IReservationService {
@@ -17,5 +18,7 @@ public interface IReservationService {
     Reservation retrieveReservation(Long idReservation);
 
     void removeReservation(Long idReservation);
+
+    List<Reservation> getReservationParAnneeUniversitaire(Date dateD , Date dateF );
 
 }
