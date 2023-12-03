@@ -2,6 +2,8 @@ package com.example.project.Service;
 
 import com.example.project.Entity.Bloc;
 import com.example.project.Entity.Chambre;
+import com.example.project.Entity.TypeChambre;
+
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public interface IChambreService {
     void removeChambre(Long idChambre);
 
     void listeChambresParBloc();
-
-
+    List<Chambre> getChambresParNomBloc(String nomBloc);
+    long nbChambreParTypeEtBloc(TypeChambre type, long idBloc);
 
 }

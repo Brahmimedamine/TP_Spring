@@ -2,6 +2,7 @@ package com.example.project.Controller;
 
 
 import com.example.project.Entity.Chambre;
+import com.example.project.Entity.TypeChambre;
 import com.example.project.Service.IChambreService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,20 @@ public class ChambreController {
         Chambre chambre= chambreService.updateChambre(ch);
         return chambre;
     }
+
+    @GetMapping("/chambres/{nomBloc}")
+    public List<Chambre> getChambresParNomBloc(@PathVariable String nomBloc) {
+        return chambreService.getChambresParNomBloc(nomBloc);
+    }
+
+    @GetMapping("/bloc/{idBloc}/chambres/count")
+    public long countChmbresByTypeAndBloc(
+            @PathVariable long idBloc,
+            @RequestParam("type") TypeChambre type
+    ) {
+        return chambreService.nbChambreParTypeEtBloc(type,idBloc);
+    }
+
+
 
 }

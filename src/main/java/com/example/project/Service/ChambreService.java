@@ -1,12 +1,16 @@
 package com.example.project.Service;
 
+import com.example.project.Entity.Bloc;
 import com.example.project.Entity.Chambre;
+import com.example.project.Entity.TypeChambre;
+import com.example.project.Repository.BlocRepository;
 import com.example.project.Repository.ChambreRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ChambreService implements IChambreService{
     ChambreRepository chambreRepository;
+    BlocRepository blocRepository;
 
     @Override
     public List<Chambre> retrieveAllchambres() {
@@ -48,4 +53,14 @@ public class ChambreService implements IChambreService{
 
 
     }
+
+    @Override
+    public List<Chambre> getChambresParNomBloc(String nomBloc) {
+        Bloc bloc =blocRepository.findByNomBloc(nomBloc);
+        return new ArrayList<>(bloc.getChambres());
+    }
+
+    @Override
+    public long nbChambreParTypeEtBloc(TypeChambre type, long idBloc) {
+        return blocRepository.countChambresByTypeAndBlocId(type,idBloc);    }
 }

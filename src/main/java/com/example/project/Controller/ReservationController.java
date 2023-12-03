@@ -39,7 +39,7 @@ public class ReservationController {
         Reservation reservation= reservationService.updateReservation(r);
         return reservation;
     }
-    @GetMapping("/getReservationParAnneeUniversitaire/{dateDebut}/{dateFin}")
+    @GetMapping("/getReservationParAnneeUniversitaire/{dateD}/{dateF}")
     public List<Reservation> getReservationParAnneeUniversitaire(@PathVariable  @DateTimeFormat(pattern="yyyy-MM-dd") Date dateD, @PathVariable  @DateTimeFormat(pattern="yyyy-MM-dd") Date dateF) {
         List<Reservation> rsrv = reservationService.getReservationParAnneeUniversitaire(dateD,dateF);
         return rsrv;
