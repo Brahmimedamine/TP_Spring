@@ -19,7 +19,7 @@ import java.util.List;
 public class ChambreService implements IChambreService{
     ChambreRepository chambreRepository;
     BlocRepository blocRepository;
-
+    IChambreService iChambreService;
     @Override
     public List<Chambre> retrieveAllchambres() {
         return chambreRepository.findAll();
@@ -47,13 +47,42 @@ public class ChambreService implements IChambreService{
 
     }
 
-    @Scheduled(fixedRate = 20000)
+
+    @Override
+    @Scheduled(fixedDelay = 20000)
     public void listeChambresParBloc() {
-        log.info("Method with fixed Rate");
+        blocRepository.findAll().forEach(
+                bloc -> {
+                    log.info("nombloc" + bloc.getNomBloc() + "capciter : " + bloc.getCapaciteBloc());
+                    log.info("Liste des chambre de  :" + bloc.getNomBloc());
 
-
+                    bloc.getChambres().forEach(chamber -> {
+                        log.info("Numero chambre:" + chamber.getNumeroChambre() + "de type:" + chamber.getTypeC());
+                    });
+                }
+        );
     }
+        @Scheduled(cron = "0 */5 * * * *")
+        public void pourcentageChambreParTypeChambre() {
+            log.info("Calcul du pourcentage des chambres ");
 
+            List<Chambre> chambres = chambreRepository.findAll();
+            int nbTotalChambres = chambres.size();
+
+            log.info("- tn.esprit.foyer.services.ChambreServiceImpl - nbTotalsChambres : {}", nbTotalChambres);
+
+            for (TypeChambre typeChambre : TypeChambre.values()) {
+                long countByType = chambres.stream()
+                        .filter(chambre -> chambre.getTypeC() == typeChambre)
+                        .count();
+
+                double pourcentage = (countByType * 100.0) / nbTotalChambres;
+
+                log.info("- tn.esprit.foyer.services.ChambreServiceImpl - Le pourcentage pour le type {} est  {}", typeChambre, pourcentage);
+            }
+
+            log.info("Fin du calcul du pourcentage");
+        }
     @Override
     public List<Chambre> getChambresParNomBloc(String nomBloc) {
         Bloc bloc =blocRepository.findByNomBloc(nomBloc);

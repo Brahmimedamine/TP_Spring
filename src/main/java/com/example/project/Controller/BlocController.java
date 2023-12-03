@@ -40,7 +40,7 @@ public class BlocController {
     }
 
 
-    @PutMapping("/chambre_bloc/{nomBloc}")
+    @PostMapping("/chambre_bloc/{nomBloc}")
     @ResponseBody
     public Bloc affecterChambresABloc(@RequestBody List<Long> numChambre, @PathVariable("nomBloc") String nomBloc) {
         Bloc bloc = blocService.affecterChambresABloc(numChambre, nomBloc);
