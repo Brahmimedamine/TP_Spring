@@ -17,5 +17,8 @@ public interface IChambreService {
 
     void removeChambre(Long idChambre);
 
+    void listeChambresParBloc();
+
+
 
 }

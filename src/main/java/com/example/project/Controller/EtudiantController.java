@@ -1,5 +1,6 @@
 package com.example.project.Controller;
 
+import com.example.project.Entity.Bloc;
 import com.example.project.Entity.Etudiant;
 import com.example.project.Service.IEtudiantService;
 import lombok.AllArgsConstructor;
@@ -38,5 +39,14 @@ public class EtudiantController {
     public Etudiant updateEtudiant(@RequestBody Etudiant e) {
         Etudiant etudiant= etudiantService.updateEtudiant(e);
         return etudiant;
+    }
+
+
+    @PutMapping("/etudiant_reservation/{nomEt}/{prenomEt}/{idReservation}")
+    @ResponseBody
+    public Etudiant affecterEtudiantAReservation(@PathVariable String nomEt, @PathVariable("prenomEt") String prenomEt,@PathVariable("idReservation") Long idReservation) {
+        Etudiant etudiant=etudiantService.affecterEtudiantAReservation(nomEt,prenomEt,idReservation);
+        return etudiant;
+
     }
 }

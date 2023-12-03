@@ -9,6 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/universite")
 public class UniversiteController {
     IUniversiteService universiteService; //injecter le service dans le controller par l'interface du service
 
@@ -37,8 +38,18 @@ public class UniversiteController {
         Universite universite= universiteService.updateUniversite(u);
         return universite;
     }
+    @PutMapping("/universite_foyer/{nomUniversite}/{idFoyer}")
+    @ResponseBody
+    public Universite affecterFoyerAUniversite(@PathVariable("nomUniversite") String nomUniversite,@PathVariable("idFoyer") Long idFoyer) {
+        Universite universite= universiteService.affecterFoyerAUniversite(idFoyer,nomUniversite);
+        return universite;
+    }
 
-
-
+    @PutMapping("/desaffecter/{idFoyer}")
+    @ResponseBody
+    public Universite desaffecterFoyerAUniversite(@PathVariable("idFoyer") Long idFoyer){
+        Universite universite =universiteService.desaffecterFoyerAUniversite(idFoyer);
+        return universite;
+    }
 
 }

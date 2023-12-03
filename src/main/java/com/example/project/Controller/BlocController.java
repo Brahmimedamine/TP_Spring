@@ -9,8 +9,10 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/bloc")
 public class BlocController {
     IBlocService blocService;
+
     @GetMapping("/retrieve-all-bloc")
     public List<Bloc> getBlocs() {
         List<Bloc> listBlocs = blocService.retrieveAllblocs();
@@ -38,4 +40,12 @@ public class BlocController {
     }
 
 
-}
+    @PutMapping("/chambre_bloc/{nomBloc}")
+    @ResponseBody
+    public Bloc affecterChambresABloc(@RequestBody List<Long> numChambre, @PathVariable("nomBloc") String nomBloc) {
+        Bloc bloc = blocService.affecterChambresABloc(numChambre, nomBloc);
+        return bloc;
+
+    }
+
+    }

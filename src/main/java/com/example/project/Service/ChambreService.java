@@ -4,6 +4,7 @@ import com.example.project.Entity.Chambre;
 import com.example.project.Repository.ChambreRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +38,14 @@ public class ChambreService implements IChambreService{
     @Override
     public void removeChambre(Long idChambre) {
         chambreRepository.deleteById(idChambre);
+
+
+    }
+
+    @Scheduled(fixedRate = 20000)
+    public void listeChambresParBloc() {
+        log.info("Method with fixed Rate");
+
 
     }
 }

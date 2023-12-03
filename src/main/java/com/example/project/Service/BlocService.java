@@ -1,11 +1,14 @@
 package com.example.project.Service;
 
 import com.example.project.Entity.Bloc;
+import com.example.project.Entity.Chambre;
 import com.example.project.Repository.BlocRepository;
+import com.example.project.Repository.ChambreRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BlocService implements IBlocService{
     BlocRepository blocRepository;
+    ChambreRepository chambreRepository;
 
     @Override
     public List<Bloc> retrieveAllblocs() {
@@ -39,4 +43,18 @@ public class BlocService implements IBlocService{
         blocRepository.deleteById(idBloc);
 
     }
-}
+
+    @Override
+    public Bloc affecterChambresABloc(List<Long> numChambre, String nomBloc) {
+        Bloc bloc = blocRepository.findByNomBloc(nomBloc);
+        List<Chambre> chambres = new ArrayList<>();
+        for (Long numeroChambre : numChambre) {
+            Chambre chambre = chambreRepository.findByNumeroChambre(numeroChambre);
+            chambre.setBloc(bloc); //chambre est le pere.
+            chambreRepository.save(chambre);
+
+    }
+
+        return bloc;
+
+    }}

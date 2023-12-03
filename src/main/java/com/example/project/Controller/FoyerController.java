@@ -9,6 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/foyer")
 public class FoyerController {
     IFoyerService foyerService;
 
@@ -32,10 +33,19 @@ public class FoyerController {
     public void removeFoyer(@PathVariable("foyer-id") Long idFoyer) {
         foyerService.removeFoyer(idFoyer);
     }
+
     @PutMapping("/update-foyer")
     public Foyer updateFoyer(@RequestBody Foyer f) {
         Foyer foyer= foyerService.updateFoyer(f);
         return foyer;
     }
+    @PostMapping("/ajouter_foyer_bloc")
+    public Foyer addFoyerWithBloc(@RequestBody Foyer foyer){
+        return foyerService.addFoyerWithBloc(foyer);
+    }
+
+
+
+
 
 }

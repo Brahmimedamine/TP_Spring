@@ -23,7 +23,7 @@ public class Chambre {
     private TypeChambre TypeC;
     @ManyToOne(cascade = CascadeType.ALL)
     private Bloc bloc;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Reservation>reservations;
 
 }

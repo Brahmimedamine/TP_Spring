@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/chambre")
 public class ChambreController {
     IChambreService chambreService;
 
